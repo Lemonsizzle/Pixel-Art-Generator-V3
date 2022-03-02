@@ -17,6 +17,7 @@ namespace Pixel_Art_Generator_V3
 {
     public partial class Form1 : Form
     {
+        string dirImages = "M:\\Pictures\\";
         Panel pGrid = new Panel();
         Pixel[,] pixels;
         int nX, nY;
@@ -39,8 +40,8 @@ namespace Pixel_Art_Generator_V3
 
             try
             {
-                nX = int.Parse(xInput.Text);
-                nY = int.Parse(yInput.Text);
+                nX = int.Parse(inputX.Text);
+                nY = int.Parse(inputY.Text);
                 valid = true;
             }
             catch (FormatException ex)
@@ -97,10 +98,10 @@ namespace Pixel_Art_Generator_V3
                                 && pixels[i, j].Bottom > relativeY
                                 && pixels[i, j].Left < relativeX)
                             {
-                                if(colInput.Text.Length == 0 || clickRight)
+                                if(inputCol.Text.Length == 0 || clickRight)
                                     pixels[i, j].BackColor = pixels[i, j].BackColor = Color.Transparent;
                                 else
-                                    pixels[i,j].BackColor = pixels[i,j].BackColor = ColorTranslator.FromHtml("0x" + colInput.Text);
+                                    pixels[i,j].BackColor = pixels[i,j].BackColor = ColorTranslator.FromHtml("0x" + inputCol.Text);
                             }
                         }
                     }
@@ -128,18 +129,43 @@ namespace Pixel_Art_Generator_V3
         {
             if (generated)
             {
-                string name = nameInput.Text;
+                string name = inputName.Text;
+                int scale = 1;
+
+                try
+                {
+                    scale = int.Parse(inputScale.Text);
+                    if (scale * nX > 23101)
+                        scale = 23101/nX;
+                    else if (scale * nY > 23101)
+                        scale = 23101/nY;
+                    else if (scale <= 0)
+                        scale = 1;
+                }catch(FormatException ex)
+                {
+                    errBox.Show(ex.Message);
+                }
+
                 if (name.Length > 0)
                 {
-                    Bitmap image = new Bitmap(nX, nY);
+                    Bitmap image = new Bitmap(nX*scale, nY*scale);
                     for (int j = 0; j < nY; j++)
                     {
                         for (int i = 0; i < nX; i++)
                         {
-                            image.SetPixel(i, j, pixels[i, j].BackColor);
+                            for (int v = 0; v < scale; v++)
+                            {
+                                for (int u = 0; u < scale; u++)
+                                {
+                                    image.SetPixel((i*scale) + u, (j*scale) + v, pixels[i, j].BackColor);
+                                }
+                            }
                         }
                     }
-                    image.Save(name + ".png", ImageFormat.Png);
+
+                    if(!Directory.Exists(dirImages))
+                        Directory.CreateDirectory(dirImages);
+                    image.Save(dirImages + name + "-" + scale.ToString() + "-.png", ImageFormat.Png);
                     image.Dispose();
                 }
             }
@@ -147,30 +173,45 @@ namespace Pixel_Art_Generator_V3
 
         private void bLoad_Click(object sender, EventArgs e)
         {
-            string name = nameInput.Text;
+            string name = inputName.Text;
 
             if(name.Length > 0)
             {
                 try
                 {
-                    Bitmap image = new Bitmap(name + ".png");
-                    nY = image.Height;
-                    nX = image.Width;
+                    string[] files = Directory.GetFiles(dirImages);
+                    string fileName = "";
+
+                    foreach (string f in files)
+                    {
+                        if (f.Contains(name))
+                            fileName = f;
+                    }
+
+                    Bitmap image = new Bitmap(fileName);
+
+                    string[] nameSplit = fileName.Split('-');
+
+                    errBox.Show(nameSplit[1]);
+
+                    int scale = int.Parse(nameSplit[1]);
+                    nY = image.Height / scale;
+                    nX = image.Width / scale;
                     generate();
 
                     for (int j = 0; j < nY; j++)
                     {
                         for (int i = 0; i < nX; i++)
                         {
-                            pixels[i, j].BackColor = image.GetPixel(i, j);
+                            pixels[i, j].BackColor = image.GetPixel(i * scale, j * scale);
                         }
                     }
                     image.Dispose(); // prevents currently in use error
                 } catch (ArgumentException ex) {
-                    errBox.Show(ex.Message);
+                    //errBox.Show(ex.Message);
                 } catch (FileNotFoundException ex)
                 {
-                    errBox.Show(ex.Message);
+                    //errBox.Show(ex.Message);
                 }
             }
         }
@@ -180,7 +221,6 @@ namespace Pixel_Art_Generator_V3
 
 
 /* Todo list
- * Save scaling
  * Advanced save and load
  * animation tab (multiple drawings to compare)
  */

@@ -29,27 +29,30 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.xInput = new System.Windows.Forms.TextBox();
+            this.inputX = new System.Windows.Forms.TextBox();
             this.labX = new System.Windows.Forms.Label();
             this.labY = new System.Windows.Forms.Label();
-            this.yInput = new System.Windows.Forms.TextBox();
+            this.inputY = new System.Windows.Forms.TextBox();
             this.bGen = new System.Windows.Forms.Button();
-            this.colInput = new System.Windows.Forms.TextBox();
+            this.inputCol = new System.Windows.Forms.TextBox();
             this.labCol = new System.Windows.Forms.Label();
             this.testing = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.bSave = new System.Windows.Forms.Button();
             this.bLoad = new System.Windows.Forms.Button();
-            this.nameInput = new System.Windows.Forms.TextBox();
+            this.inputName = new System.Windows.Forms.TextBox();
+            this.inputScale = new System.Windows.Forms.TextBox();
+            this.labScale = new System.Windows.Forms.Label();
+            this.labName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // xInput
+            // inputX
             // 
-            this.xInput.Location = new System.Drawing.Point(59, 12);
-            this.xInput.Name = "xInput";
-            this.xInput.Size = new System.Drawing.Size(100, 23);
-            this.xInput.TabIndex = 0;
-            this.xInput.Text = "10";
+            this.inputX.Location = new System.Drawing.Point(59, 12);
+            this.inputX.Name = "inputX";
+            this.inputX.Size = new System.Drawing.Size(35, 23);
+            this.inputX.TabIndex = 0;
+            this.inputX.Text = "10";
             // 
             // labX
             // 
@@ -63,23 +66,23 @@
             // labY
             // 
             this.labY.AutoSize = true;
-            this.labY.Location = new System.Drawing.Point(165, 15);
+            this.labY.Location = new System.Drawing.Point(100, 15);
             this.labY.Name = "labY";
             this.labY.Size = new System.Drawing.Size(41, 15);
             this.labY.TabIndex = 2;
             this.labY.Text = "Y-Axis";
             // 
-            // yInput
+            // inputY
             // 
-            this.yInput.Location = new System.Drawing.Point(212, 12);
-            this.yInput.Name = "yInput";
-            this.yInput.Size = new System.Drawing.Size(100, 23);
-            this.yInput.TabIndex = 3;
-            this.yInput.Text = "10";
+            this.inputY.Location = new System.Drawing.Point(147, 12);
+            this.inputY.Name = "inputY";
+            this.inputY.Size = new System.Drawing.Size(35, 23);
+            this.inputY.TabIndex = 3;
+            this.inputY.Text = "10";
             // 
             // bGen
             // 
-            this.bGen.Location = new System.Drawing.Point(318, 12);
+            this.bGen.Location = new System.Drawing.Point(188, 11);
             this.bGen.Name = "bGen";
             this.bGen.Size = new System.Drawing.Size(75, 23);
             this.bGen.TabIndex = 4;
@@ -87,18 +90,19 @@
             this.bGen.UseVisualStyleBackColor = true;
             this.bGen.Click += new System.EventHandler(this.bGen_Click);
             // 
-            // colInput
+            // inputCol
             // 
-            this.colInput.Location = new System.Drawing.Point(857, 12);
-            this.colInput.MaxLength = 6;
-            this.colInput.Name = "colInput";
-            this.colInput.Size = new System.Drawing.Size(100, 23);
-            this.colInput.TabIndex = 5;
+            this.inputCol.Location = new System.Drawing.Point(727, 11);
+            this.inputCol.MaxLength = 6;
+            this.inputCol.Name = "inputCol";
+            this.inputCol.Size = new System.Drawing.Size(51, 23);
+            this.inputCol.TabIndex = 5;
+            this.inputCol.Text = "FF0000";
             // 
             // labCol
             // 
             this.labCol.AutoSize = true;
-            this.labCol.Location = new System.Drawing.Point(815, 15);
+            this.labCol.Location = new System.Drawing.Point(685, 16);
             this.labCol.Name = "labCol";
             this.labCol.Size = new System.Drawing.Size(36, 15);
             this.labCol.TabIndex = 6;
@@ -107,7 +111,7 @@
             // testing
             // 
             this.testing.AutoSize = true;
-            this.testing.Location = new System.Drawing.Point(857, 37);
+            this.testing.Location = new System.Drawing.Point(784, 16);
             this.testing.Name = "testing";
             this.testing.Size = new System.Drawing.Size(38, 15);
             this.testing.TabIndex = 8;
@@ -121,7 +125,7 @@
             // 
             // bSave
             // 
-            this.bSave.Location = new System.Drawing.Point(653, 11);
+            this.bSave.Location = new System.Drawing.Point(523, 12);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(75, 23);
             this.bSave.TabIndex = 9;
@@ -131,7 +135,7 @@
             // 
             // bLoad
             // 
-            this.bLoad.Location = new System.Drawing.Point(734, 11);
+            this.bLoad.Location = new System.Drawing.Point(604, 12);
             this.bLoad.Name = "bLoad";
             this.bLoad.Size = new System.Drawing.Size(75, 23);
             this.bLoad.TabIndex = 10;
@@ -139,29 +143,58 @@
             this.bLoad.UseVisualStyleBackColor = true;
             this.bLoad.Click += new System.EventHandler(this.bLoad_Click);
             // 
-            // nameInput
+            // inputName
             // 
-            this.nameInput.Location = new System.Drawing.Point(399, 12);
-            this.nameInput.Name = "nameInput";
-            this.nameInput.Size = new System.Drawing.Size(248, 23);
-            this.nameInput.TabIndex = 11;
+            this.inputName.Location = new System.Drawing.Point(314, 12);
+            this.inputName.Name = "inputName";
+            this.inputName.Size = new System.Drawing.Size(111, 23);
+            this.inputName.TabIndex = 11;
+            // 
+            // inputScale
+            // 
+            this.inputScale.Location = new System.Drawing.Point(471, 12);
+            this.inputScale.Name = "inputScale";
+            this.inputScale.Size = new System.Drawing.Size(46, 23);
+            this.inputScale.TabIndex = 12;
+            this.inputScale.Text = "1";
+            // 
+            // labScale
+            // 
+            this.labScale.AutoSize = true;
+            this.labScale.Location = new System.Drawing.Point(431, 15);
+            this.labScale.Name = "labScale";
+            this.labScale.Size = new System.Drawing.Size(34, 15);
+            this.labScale.TabIndex = 13;
+            this.labScale.Text = "Scale";
+            // 
+            // labName
+            // 
+            this.labName.AutoSize = true;
+            this.labName.Location = new System.Drawing.Point(269, 15);
+            this.labName.Name = "labName";
+            this.labName.Size = new System.Drawing.Size(39, 15);
+            this.labName.TabIndex = 14;
+            this.labName.Text = "Name";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(969, 450);
-            this.Controls.Add(this.nameInput);
+            this.ClientSize = new System.Drawing.Size(841, 450);
+            this.Controls.Add(this.labName);
+            this.Controls.Add(this.labScale);
+            this.Controls.Add(this.inputScale);
+            this.Controls.Add(this.inputName);
             this.Controls.Add(this.bLoad);
             this.Controls.Add(this.bSave);
             this.Controls.Add(this.testing);
             this.Controls.Add(this.labCol);
-            this.Controls.Add(this.colInput);
+            this.Controls.Add(this.inputCol);
             this.Controls.Add(this.bGen);
-            this.Controls.Add(this.yInput);
+            this.Controls.Add(this.inputY);
             this.Controls.Add(this.labY);
             this.Controls.Add(this.labX);
-            this.Controls.Add(this.xInput);
+            this.Controls.Add(this.inputX);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -171,17 +204,20 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox xInput;
+        private System.Windows.Forms.TextBox inputX;
         private System.Windows.Forms.Label labX;
         private System.Windows.Forms.Label labY;
-        private System.Windows.Forms.TextBox yInput;
+        private System.Windows.Forms.TextBox inputY;
         private System.Windows.Forms.Button bGen;
-        private System.Windows.Forms.TextBox colInput;
+        private System.Windows.Forms.TextBox inputCol;
         private System.Windows.Forms.Label labCol;
         private System.Windows.Forms.Label testing;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Button bLoad;
-        private System.Windows.Forms.TextBox nameInput;
+        private System.Windows.Forms.TextBox inputName;
+        private System.Windows.Forms.TextBox inputScale;
+        private System.Windows.Forms.Label labScale;
+        private System.Windows.Forms.Label labName;
     }
 }
